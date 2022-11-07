@@ -8,13 +8,13 @@ const {
 
 // GET Route for retrieving all the notes
 notes.get("/", (req, res) => {
-  readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
+  readFromFile("./db/notes.json").then((data) => res.json(JSON.parse(data)));
 });
 
 // GET Route for a specific note
 notes.get("/:note_id", (req, res) => {
   const noteId = req.params.note_id;
-  readFromFile("./db/db.json")
+  readFromFile("./db/notes.json")
     .then((data) => JSON.parse(data))
     .then((json) => {
       const result = json.filter((note) => note.note_id === noteId);
@@ -36,7 +36,7 @@ notes.post("/", (req, res) => {
       id: uuidv4(),
     };
 
-    readAndAppend(newNote, "./db/db.json");
+    readAndAppend(newNote, "./db/notes.json");
     res.json(`Tip added successfully 🚀`);
   } else {
     res.error("Error in adding note");
