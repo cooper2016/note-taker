@@ -6,12 +6,12 @@ const {
   writeToFile,
 } = require("../helpers/fsUtils");
 
-// GET Route for retrieving all the tips
+// GET Route for retrieving all the notes
 notes.get("/", (req, res) => {
   readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
 });
 
-// GET Route for a specific tip
+// GET Route for a specific note
 notes.get("/:note_id", (req, res) => {
   const noteId = req.params.note_id;
   readFromFile("./db/db.json")
@@ -33,7 +33,7 @@ notes.post("/", (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNote, "./db/db.json");
